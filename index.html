@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>astrid27 | freepbx deployments & twilio sip trunks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="astrid27 builds modern freepbx phone systems and provides sip trunks powered by twilio. secure, scalable and business-ready." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #040816;
+            --bg-alt: #070b1f;
+            --accent: #4f46e5;
+            --accent-soft: rgba(79, 70, 229, 0.12);
+            --accent-strong: #6366f1;
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --border: #111827;
+            --card-bg: #020617;
+            --danger: #ef4444;
+            --success: #22c55e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: radial-gradient(circle at top, #111827 0, #020617 40%, #000 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 1.75rem 1.25rem 4rem;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            margin-bottom: 2.5rem;
+            background: rgba(15, 23, 42, 0.86);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0.75rem;
+            z-index: 20;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: radial-gradient(circle at 30% 0, #e5e7eb 0, #4f46e5 36%, #020617 80%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        nav a {
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            color: var(--muted);
+        }
+
+        nav a:hover {
+            background: rgba(15, 23, 42, 0.9);
+            color: white;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .nav-cta {
+            padding: 0.45rem 0.95rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            border-radius: 999px;
+            color: white;
+            font-weight: 500;
+        }
+
+        /* hero */
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            gap: 2.5rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            gap: 0.4rem;
+            padding: 0.18rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            background: rgba(15, 23, 42, 0.8);
+            font-size: 0.72rem;
+            color: var(--muted);
+        }
+
+        .hero-kicker span.badge {
+            background: rgba(34, 197, 94, 0.2);
+            padding: 0.1rem 0.45rem;
+            border-radius: 999px;
+            color: #bbf7d0;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.1rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #e5e7eb, #a5b4fc, #4f46e5);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            color: var(--muted);
+            font-size: 0.98rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .hero-metrics {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.7rem;
+            font-size: 0.8rem;
+        }
+
+        .hero-metrics span {
+            padding: 0.4rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.98);
+            border: 1px solid rgba(55, 65, 81, 0.9);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            padding: 0.7rem 1.4rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            color: white;
+        }
+
+        .btn-secondary {
+            padding: 0.65rem 1.3rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--muted);
+        }
+
+        .hero-visual {
+            background: radial-gradient(circle at top, rgba(79, 70, 229, 0.35), rgba(15, 23, 42, 1));
+            border-radius: 26px;
+            padding: 1.2rem;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            box-shadow: 0 25px 60px rgba(15, 23, 42, 0.95);
+        }
+
+        /* sections */
+        section { margin-bottom: 3.5rem; }
+
+        .section-header { margin-bottom: 1.8rem; }
+
+        .section-kicker {
+            font-size: 0.68rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+        }
+
+        .section-title { font-size: 1.4rem; margin-bottom: 0.3rem; }
+        .section-subtitle { color: var(--muted); max-width: 32rem; }
+
+        .services-grid, .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 1.4rem;
+        }
+
+        .card, .price-card {
+            border-radius: 20px;
+            background: rgba(15,23,42,0.98);
+            border: 1px solid rgba(31,41,55,0.95);
+            padding: 1rem;
+        }
+
+        .card-tag {
+            background: rgba(79,70,229,0.15);
+            color: #c7d2fe;
+            padding: 0.2rem 0.65rem;
+            border-radius: 999px;
+            margin-bottom: 0.5rem;
+            font-size: 0.7rem;
+        }
+
+        ul { padding-left: 1rem; font-size: 0.8rem; }
+        ul li { margin-bottom: 0.35rem; }
+
+        /* pricing */
+        .price-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+        }
+
+        .price-name { font-size: 0.95rem; }
+        .price-tag { font-size: 0.7rem; border: 1px solid rgba(148,163,184,0.7); padding: 0.15rem 0.55rem; border-radius: 999px; }
+
+        .price-amount {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .price-note { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.8rem; }
+
+        .price-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .check {
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(52,211,153,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6ee7b7;
+            font-size: 0.7rem;
+        }
+
+        .price-cta {
+            width: 100%;
+            padding: 0.6rem;
+            border-radius: 999px;
+            border: 1px solid rgba(129,140,248,0.9);
+            background: rgba(15,23,42,0.96);
+            color: #e5e7eb;
+        }
+
+        /* booking embed */
+        iframe.booking-frame {
+            width: 100%;
+            height: 850px;
+            border: 1px solid rgba(55,65,81,0.6);
+            border-radius: 16px;
+            background: white;
+        }
+
+        footer {
+            margin-top: 3rem;
+            border-top: 1px solid rgba(31,41,55,0.95);
+            padding-top: 1.5rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media(max-width:900px){
+            nav { display:none; }
+            .hero { grid-template-columns: 1fr; }
+            .services-grid, .pricing-grid { grid-template-columns: repeat(2,1fr); }
+        }
+        @media(max-width:640px){
+            .services-grid, .pricing-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="page">
+
+    <!-- header -->
+    <header>
+        <div class="logo">
+            <div class="logo-mark">27</div>
+            <div>
+                <div style="font-weight:600; font-size:0.85rem;">astrid27</div>
+                <div style="font-size:0.7rem; color:var(--muted);">freepbx + twilio sip</div>
+            </div>
+        </div>
+
+        <nav>
+            <a href="#services">services</a>
+            <a href="#pricing">pricing</a>
+            <a href="#contact">meetings</a>
+            <a class="nav-cta" href="#contact">book now</a>
+        </nav>
+    </header>
+
+    <!-- hero -->
+    <section class="hero" id="top">
+        <div>
+            <div class="hero-kicker">
+                <span class="badge">freepbx experts</span>
+                <span>twilio sip trunks</span>
+            </div>
+
+            <h1>
+                enterprise-grade <span class="highlight">freepbx deployments</span> with sip trunks powered by twilio.
+            </h1>
+
+            <p class="hero-subtitle">
+                astrid27 installs & engineers full freepbx systems and sip trunks backed by twilio’s global carrier network.
+            </p>
+
+            <div class="hero-metrics">
+                <span>freepbx certified builds</span>
+                <span>twilio elastic sip routing</span>
+                <span>secure + hardened installs</span>
+            </div>
+
+            <div class="hero-actions">
+                <a href="https://outlook.office.com/book/Consultastrid27Communications@astrid27.com/"
+                   target="_blank"
+                   class="btn-primary">
+                    book a meeting
+                </a>
+
+                <a href="#pricing" class="btn-secondary">
+                    <strong>sip trunk pricing</strong>
+                </a>
+            </div>
+
+            <p style="color:var(--muted); font-size:0.75rem;">
+                setup available in <span style="color:#d1fae5;">24–48 hours</span>.
+            </p>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-panel">
+                <div style="margin-bottom:0.8rem; font-size:0.8rem;">
+                    <strong>sip trunk link – twilio</strong> <span style="color:#22c55e;">● active</span>
+                </div>
+
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0.6rem;">
+                    <div>
+                        <div style="font-size:0.7rem; color:var(--muted);">current calls</div>
+                        <div style="font-size:0.9rem; font-weight:600;">7</div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.7rem; color:var(--muted);">mos avg</div>
+                        <div style="font-size:0.9rem; font-weight:600;">4.5</div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.7rem; color:var(--muted);">packet loss</div>
+                        <div style="font-size:0.9rem; font-weight:600;">0.0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- services -->
+    <section id="services">
+        <div class="section-header">
+            <div class="section-kicker">services</div>
+            <h2 class="section-title">freepbx systems + twilio sip trunks</h2>
+            <p class="section-subtitle">
+                everything you need for a modern business phone system powered by open-source tech and carrier-grade routing.
+            </p>
+        </div>
+
+        <div class="services-grid">
+
+            <article class="card">
+                <div class="card-tag">freepbx deployments</div>
+                <h3>turn-key freepbx servers</h3>
+                <p>complete freepbx installs ready for business use.</p>
+                <ul>
+                    <li>extensions, ivr, ring groups, queues</li>
+                    <li>remote worker softphone setup</li>
+                    <li>secure sip, tls & srtp</li>
+                    <li>firewall hardening & fail2ban</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <div class="card-tag">sip trunks</div>
+                <h3>twilio sip trunking</h3>
+                <p>inbound/outbound calling with global reliability.</p>
+                <ul>
+                    <li>did + toll-free numbers</li>
+                    <li>e911 & nomadic 911</li>
+                    <li>cnam & caller id</li>
+                    <li>fraud protection & rate limits</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <div class="card-tag">migration</div>
+                <h3>pbx migration</h3>
+                <p>move from old systems or hosted providers to freepbx.</p>
+                <ul>
+                    <li>full number porting</li>
+                    <li>device reprovisioning</li>
+                    <li>queue/ivr recreation</li>
+                    <li>zero-downtime cutovers</li>
+                </ul>
+            </article>
+
+        </div>
+    </section>
+
+
+    <!-- pricing -->
+    <section id="pricing">
+        <div class="section-header">
+            <div class="section-kicker">pricing</div>
+            <h2 class="section-title">simple, fair pricing</h2>
+            <p class="section-subtitle">
+                freepbx deployment pricing. sip usage billed directly by twilio at their standard rates.
+            </p>
+        </div>
+
+        <div class="pricing-grid">
+
+            <article class="price-card">
+                <div class="price-header">
+                    <div class="price-name">freepbx basic</div>
+                    <div class="price-tag">small setups</div>
+                </div>
+                <div class="price-amount">$149</div>
+                <p class="price-note">perfect for up to 10 extensions.</p>
+                <ul class="price-features">
+                    <li><span class="check">✓</span>full install</li>
+                    <li><span class="check">✓</span>basic ivr & vm</li>
+                    <li><span class="check">✓</span>twilio trunk setup</li>
+                    <li><span class="check">✓</span>30 days support</li>
+                </ul>
+                <button class="price-cta">book install</button>
+            </article>
+
+            <article class="price-card">
+                <div class="price-header">
+                    <div class="price-name">freepbx business</div>
+                    <div class="price-tag">most popular</div>
+                </div>
+                <div class="price-amount">$349</div>
+                <p class="price-note">for offices up to 40 extensions.</p>
+                <ul class="price-features">
+                    <li><span class="check">✓</span>advanced routing</li>
+                    <li><span class="check">✓</span>device provisioning</li>
+                    <li><span class="check">✓</span>migration services</li>
+                    <li><span class="check">✓</span>90 days support</li>
+                </ul>
+                <button class="price-cta">start deployment</button>
+            </article>
+
+            <article class="price-card">
+                <div class="price-header">
+                    <div class="price-name">enterprise freepbx</div>
+                    <div class="price-tag">custom</div>
+                </div>
+                <div class="price-amount">custom</div>
+                <p class="price-note">multi-site, failover, sbc integration.</p>
+                <ul class="price-features">
+                    <li><span class="check">✓</span>multi-region</li>
+                    <li><span class="check">✓</span>contact center support</li>
+                    <li><span class="check">✓</span>qos + networking</li>
+                    <li><span class="check">✓</span>dedicated engineer</li>
+                </ul>
+                <button class="price-cta">design plan</button>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- meetings (contact) -->
+    <section id="contact">
+        <div class="section-header">
+            <div class="section-kicker">meetings</div>
+            <h2 class="section-title">schedule a meeting with astrid27</h2>
+            <p class="section-subtitle">
+                use our official microsoft outlook booking system to book a call with our engineers.
+            </p>
+        </div>
+
+        <iframe 
+            class="booking-frame"
+            src="https://outlook.office.com/book/Consultastrid27Communications@astrid27.com/"
+        ></iframe>
+
+    </section>
+
+    <footer>
+        <div>© <span id="year"></span> astrid27. all rights reserved.</div>
+        <div style="display:flex; gap:0.75rem;">
+            <a href="#top" style="color:var(--muted);">back to top</a>
+        </div>
+    </footer>
+
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
