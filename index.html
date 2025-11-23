@@ -48,6 +48,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 1rem;
         }
 
         .brand {
@@ -55,11 +56,14 @@
             font-weight: 700;
             color: var(--brand-blue-dark);
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .nav-links {
             display: flex;
             gap: 1.75rem;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
@@ -83,12 +87,14 @@
             font-weight: 600;
             font-size: 0.95rem;
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .btn-primary:hover {
             background: var(--brand-blue-dark);
         }
 
+        /* Hero */
         .hero {
             background: var(--bg-gray);
             padding: 4rem 1.5rem;
@@ -119,9 +125,11 @@
         .hero-buttons {
             margin-top: 1.5rem;
             display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
         }
 
+        /* Sections */
         section {
             padding: 3.5rem 1.5rem;
         }
@@ -145,10 +153,11 @@
             margin-bottom: 2rem;
         }
 
+        /* Pricing */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
             gap: 1.25rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         }
 
         .plan {
@@ -157,6 +166,9 @@
             border-radius: var(--radius);
             background: white;
             transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .plan:hover {
@@ -169,11 +181,24 @@
             font-weight: 600;
         }
 
+        .plan-tag {
+            margin-top: 0.25rem;
+            font-size: 0.8rem;
+            color: var(--brand-blue-dark);
+            font-weight: 500;
+        }
+
         .plan-price {
             margin: 0.7rem 0 0.2rem;
             font-size: 1.7rem;
             font-weight: 700;
             color: var(--brand-blue-dark);
+        }
+
+        .plan-price span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-soft);
         }
 
         .plan-desc {
@@ -194,12 +219,75 @@
             margin-bottom: 0.45rem;
         }
 
+        .plan-footer-note {
+            font-size: 0.82rem;
+            color: var(--text-soft);
+            margin-top: 0.9rem;
+        }
+
         .plan .btn-primary {
             margin-top: 1.4rem;
             width: 100%;
             text-align: center;
         }
 
+        /* Hardware section */
+        .hardware-grid {
+            display: grid;
+            gap: 1.25rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        .hardware-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: white;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: var(--transition);
+        }
+
+        .hardware-card:hover {
+            border-color: var(--brand-blue);
+        }
+
+        .hardware-card img {
+            width: 100%;
+            max-height: 170px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 0.9rem;
+            background: var(--bg-gray);
+        }
+
+        .hardware-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+
+        .hardware-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--brand-blue-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .hardware-desc {
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            margin-bottom: 0.7rem;
+            flex-grow: 1;
+        }
+
+        .hardware-meta {
+            font-size: 0.8rem;
+            color: var(--text-soft);
+        }
+
+        /* Generic card box (How / Platform / Contact) */
         .contact-box {
             border: 1px solid var(--border);
             padding: 2rem;
@@ -220,9 +308,6 @@
             .hero-inner {
                 grid-template-columns: 1fr;
             }
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 
@@ -235,12 +320,15 @@
 
         <div class="nav-links">
             <a href="#pricing">Pricing</a>
+            <a href="#hardware">Hardware & Add-ons</a>
             <a href="#how">How It Works</a>
             <a href="#platform">Platform</a>
             <a href="#contact">Contact</a>
         </div>
 
-        <a class="btn-primary" href="https://outlook.office.com/book/Consultastrid27Communications@astrid27.com/" target="_blank">Book a Consult</a>
+        <a class="btn-primary" href="https://outlook.office.com/book/Consultastrid27Communications@astrid27.com/" target="_blank" rel="noopener">
+            Book a Consult
+        </a>
     </nav>
 </header>
 
@@ -255,136 +343,323 @@
 
             <div class="hero-buttons">
                 <a href="#pricing" class="btn-primary">View Phone Plans</a>
-                <a href="https://outlook.office.com/book/Consultastrid27Communications@astrid27.com/" class="btn-primary" target="_blank">Schedule Call</a>
+                <a href="https://outlook.office.com/book/Consultastrid27Communications@astrid27.com/" class="btn-primary" target="_blank" rel="noopener">
+                    Schedule Call
+                </a>
             </div>
         </div>
 
         <div>
-            <img src="https://via.placeholder.com/540x360/edf0f3/cccccc?text=Astrid27+Communications" style="width:100%; border-radius:12px;" alt="">
+            <!-- Replace this placeholder with a real hero image when ready -->
+            <img src="https://via.placeholder.com/540x360/edf0f3/cccccc?text=Astrid27+Communications" style="width:100%; border-radius:12px;" alt="Cloud-based SIP trunking and FreePBX deployment illustration">
         </div>
     </div>
 </section>
 
+<!-- Service plans -->
 <section id="pricing">
     <div class="section-inner">
         <h2 class="section-title">Transparent Phone Plans</h2>
-        <p class="section-desc">Pricing below covers engineering, AWS hosting, monitoring, and management. Carrier minutes stay on your own provider.</p>
+        <p class="section-desc">
+            Pricing below covers engineering, AWS hosting, monitoring, and management for your PBX.
+            Carrier minutes and number charges stay with your own SIP provider.
+        </p>
 
         <div class="pricing-grid">
 
-            <!-- Trial Plan -->
+            <!-- Free Trial / Initial Deployment -->
             <div class="plan">
-                <h3>Trial Plan</h3>
-                <p class="plan-price">$50</p>
-                <p class="plan-desc">Test our setup before committing.</p>
+                <h3>Free Trial</h3>
+                <div class="plan-tag">Initial Deployment Credit</div>
+                <p class="plan-price">$50.00</p>
+                <p class="plan-desc">Evaluate our design and deployment approach before you commit to a monthly plan.</p>
                 <ul>
-                    <li>Fully functional temporary FreePBX instance</li>
+                    <li>Temporary FreePBX instance for testing</li>
                     <li>Basic SIP trunk integration</li>
-                    <li>Short-term sandbox for evaluation</li>
-                    <li>Setup review with our team</li>
+                    <li>Short-term sandbox for call flow evaluation</li>
+                    <li>Wrap-up review with our engineering team</li>
                 </ul>
-                <p class="plan-desc" style="margin-top:1rem; font-size:0.85rem;">
-                    Non-refundable. If you continue with a monthly plan, the $50 becomes service credit.
+                <p class="plan-footer-note">
+                    Non-refundable. If you continue with an ongoing plan, the $50 applies as a service credit to your first invoice.
                 </p>
-                <a href="#" class="btn-primary">Start Trial</a>
+                <a href="#contact" class="btn-primary">Start Trial Discussion</a>
             </div>
 
+            <!-- Phone Unlimited Residential -->
+            <div class="plan">
+                <h3>Phone Unlimited (Residential)</h3>
+                <div class="plan-tag">Residential Voice Line</div>
+                <p class="plan-price">$15.99<span>/month</span></p>
+                <p class="plan-desc">Unlimited residential calling over a managed VoIP line, backed by our AWS-hosted platform.</p>
+                <ul>
+                    <li>One residential VoIP line with a standard number</li>
+                    <li>Configured on supported ATA or IP phone hardware</li>
+                    <li>Typical “home phone” use, fair-use policy applies</li>
+                    <li>Not intended for call centers or high-volume business usage</li>
+                </ul>
+                <p class="plan-footer-note">
+                    Requires compatible device (Cisco ATA or IP phone) and an underlying SIP trunk arrangement.
+                </p>
+                <a href="#hardware" class="btn-primary">View Compatible Devices</a>
+            </div>
+
+            <!-- Phone 30 -->
             <div class="plan">
                 <h3>Phone 30</h3>
-                <p class="plan-price">$169/mo</p>
-                <p class="plan-desc">Up to 30 concurrent calls.</p>
+                <div class="plan-tag">Business Plan</div>
+                <p class="plan-price">$169.99<span>/month</span></p>
+                <p class="plan-desc">Up to 30 concurrent calls, suitable for smaller teams and locations.</p>
                 <ul>
                     <li>FreePBX hosted on AWS</li>
-                    <li>Secure SIP integration</li>
-                    <li>IVRs, queues, voicemail</li>
-                    <li>Standard support</li>
+                    <li>Secure SIP trunk integration</li>
+                    <li>IVRs, queues, voicemail, time conditions</li>
+                    <li>Standard business-hours support</li>
                 </ul>
-                <a href="#" class="btn-primary">Choose Phone 30</a>
+                <a href="#contact" class="btn-primary">Choose Phone 30</a>
             </div>
 
+            <!-- Phone 50 -->
             <div class="plan">
                 <h3>Phone 50</h3>
-                <p class="plan-price">$249/mo</p>
-                <p class="plan-desc">Ideal for growing teams.</p>
+                <div class="plan-tag">Most Common</div>
+                <p class="plan-price">$249.99<span>/month</span></p>
+                <p class="plan-desc">For growing teams and light call center usage, with room to scale.</p>
                 <ul>
-                    <li>Multi-AZ AWS design</li>
-                    <li>Advanced call flows</li>
-                    <li>Priority support</li>
-                    <li>Quarterly reviews</li>
+                    <li>Multi-AZ AWS design for improved resiliency</li>
+                    <li>Advanced call flows and queues</li>
+                    <li>Priority support and change windows</li>
+                    <li>Quarterly configuration and health reviews</li>
                 </ul>
-                <a href="#" class="btn-primary">Choose Phone 50</a>
+                <a href="#contact" class="btn-primary">Choose Phone 50</a>
             </div>
 
+            <!-- Phone 100 -->
             <div class="plan">
                 <h3>Phone 100</h3>
-                <p class="plan-price">$389/mo</p>
-                <p class="plan-desc">For busy call environments.</p>
+                <div class="plan-tag">High Volume</div>
+                <p class="plan-price">$389.99<span>/month</span></p>
+                <p class="plan-desc">For busy support desks, multi-site environments, and higher concurrency.</p>
                 <ul>
-                    <li>Enhanced monitoring</li>
-                    <li>Security hardening</li>
-                    <li>Carrier coordination</li>
-                    <li>High-volume stability</li>
+                    <li>Up to 100 concurrent calls engineered capacity</li>
+                    <li>Enhanced monitoring and alerting</li>
+                    <li>Security hardening and best practices</li>
+                    <li>Coordinated changes with your carrier</li>
                 </ul>
-                <a href="#" class="btn-primary">Choose Phone 100</a>
+                <a href="#contact" class="btn-primary">Choose Phone 100</a>
             </div>
 
+            <!-- Phone Enterprise -->
             <div class="plan">
                 <h3>Phone Enterprise</h3>
+                <div class="plan-tag">Custom & Regulated</div>
                 <p class="plan-price">Custom</p>
-                <p class="plan-desc">Multi-region, regulated, high-uptime builds.</p>
+                <p class="plan-desc">For multi-region, regulated, or strict uptime requirements.</p>
                 <ul>
-                    <li>Disaster recovery design</li>
-                    <li>UAT / staging environments</li>
-                    <li>Advanced reporting</li>
-                    <li>Architecture reviews</li>
+                    <li>Multi-region or multi-account AWS layouts</li>
+                    <li>Disaster recovery runbooks and testing</li>
+                    <li>Staging / UAT environments for change control</li>
+                    <li>Advanced reporting and integrations where supported</li>
                 </ul>
-                <a href="#" class="btn-primary">Enterprise Inquiry</a>
+                <p class="plan-footer-note">
+                    Designed collaboratively with your internal IT, security, and compliance teams.
+                </p>
+                <a href="#contact" class="btn-primary">Enterprise Inquiry</a>
             </div>
 
         </div>
     </div>
 </section>
 
+<!-- Hardware & Add-ons -->
+<section id="hardware">
+    <div class="section-inner">
+        <h2 class="section-title">Hardware & Add-ons</h2>
+        <p class="section-desc">
+            We support a focused set of Cisco devices and simple, transparent deployment pricing.
+            Images below are representative; exact models and revisions are confirmed during ordering.
+        </p>
+
+        <div class="hardware-grid">
+            <!-- Cisco ATA 191/192 -->
+            <div class="hardware-card">
+                <!-- replace placeholder src with your hosted ATA image when ready -->
+                <img src="https://via.placeholder.com/320x180?text=Cisco+ATA+191%2F192" alt="Cisco ATA 191/192 analog telephone adapter">
+                <div class="hardware-name">Cisco ATA 191/192</div>
+                <div class="hardware-price">$99.99</div>
+                <div class="hardware-desc">
+                    Two-port analog telephone adapter for connecting traditional phones or fax machines
+                    into your VoIP and SIP trunk environment.
+                </div>
+                <div class="hardware-meta">
+                    Recommended for residential lines and legacy analog endpoints that must remain in service.
+                </div>
+            </div>
+
+            <!-- Cisco IP Phone 9871 -->
+            <div class="hardware-card">
+                <img src="https://via.placeholder.com/320x180?text=Cisco+IP+Phone+9871" alt="Cisco IP Phone 9871 desk phone">
+                <div class="hardware-name">Cisco IP Phone 9871</div>
+                <div class="hardware-price">$300.00</div>
+                <div class="hardware-desc">
+                    Premium IP phone with color display, ideal for executives and primary operators who
+                    spend most of their day on calls.
+                </div>
+                <div class="hardware-meta">
+                    Designed for busy desks and higher visibility call handling.
+                </div>
+            </div>
+
+            <!-- Cisco IP Phone 9861 -->
+            <div class="hardware-card">
+                <img src="https://via.placeholder.com/320x180?text=Cisco+IP+Phone+9861" alt="Cisco IP Phone 9861 desk phone">
+                <div class="hardware-name">Cisco IP Phone 9861</div>
+                <div class="hardware-price">$275.00</div>
+                <div class="hardware-desc">
+                    Advanced IP phone from the 9800 series with high-resolution display and rich feature set
+                    for power users and supervisors.
+                </div>
+                <div class="hardware-meta">
+                    Great for shared spaces, team leads, and operators who need more line appearances.
+                </div>
+            </div>
+
+            <!-- Cisco IP Phone 9851 -->
+            <div class="hardware-card">
+                <img src="https://via.placeholder.com/320x180?text=Cisco+IP+Phone+9851" alt="Cisco IP Phone 9851 desk phone">
+                <div class="hardware-name">Cisco IP Phone 9851</div>
+                <div class="hardware-price">$250.00</div>
+                <div class="hardware-desc">
+                    Mid-range IP phone balancing features and cost, suitable for most standard knowledge workers.
+                </div>
+                <div class="hardware-meta">
+                    A solid default choice for general office deployments.
+                </div>
+            </div>
+
+            <!-- Cisco IP Phone 9841 -->
+            <div class="hardware-card">
+                <img src="https://via.placeholder.com/320x180?text=Cisco+IP+Phone+9841" alt="Cisco IP Phone 9841 desk phone">
+                <div class="hardware-name">Cisco IP Phone 9841</div>
+                <div class="hardware-price">$150.00</div>
+                <div class="hardware-desc">
+                    Entry-level IP phone in the 9800 series with a clear display and core calling features.
+                </div>
+                <div class="hardware-meta">
+                    Ideal for common areas, lower-usage desks, and cost-sensitive rollouts.
+                </div>
+            </div>
+
+            <!-- SIP Trunk (+1 North American) -->
+            <div class="hardware-card">
+                <img src="https://via.placeholder.com/320x180?text=SIP+Trunk+%2B1+NA" alt="SIP trunk North American calling illustration">
+                <div class="hardware-name">SIP Trunk (+1 North American)</div>
+                <div class="hardware-price">$9.99</div>
+                <div class="hardware-desc">
+                    Per-channel pricing example for a North American (+1) SIP trunk. Final rates depend on
+                    your chosen carrier and configuration.
+                </div>
+                <div class="hardware-meta">
+                    We help design and configure trunks; you keep direct billing with the carrier.
+                </div>
+            </div>
+
+            <!-- Deployment (200+) -->
+            <div class="hardware-card">
+                <img src="https://via.placeholder.com/320x180?text=Deployment+200%2B" alt="Large-scale phone deployment illustration">
+                <div class="hardware-name">Deployment (200+ Devices)</div>
+                <div class="hardware-price">$300.00</div>
+                <div class="hardware-desc">
+                    Flat-rate deployment engineering for environments with 200 or more devices to prepare
+                    and onboard.
+                </div>
+                <div class="hardware-meta">
+                    Final scope confirmed during discovery; complex environments may require a custom quote.
+                </div>
+            </div>
+
+            <!-- Deployment Labor (10–50) -->
+            <div class="hardware-card">
+                <img src="https://via.placeholder.com/320x180?text=Deployment+10-50" alt="Small deployment team illustration">
+                <div class="hardware-name">Deployment Labor (10–50 Devices)</div>
+                <div class="hardware-price">$250.00</div>
+                <div class="hardware-desc">
+                    Structured deployment assistance for sites with between 10 and 50 devices, including
+                    configuration and cutover support.
+                </div>
+                <div class="hardware-meta">
+                    Ideal for branch offices and moderate expansions.
+                </div>
+            </div>
+
+            <!-- Deployment Labor (5–10) -->
+            <div class="hardware-card">
+                <img src="https://via.placeholder.com/320x180?text=Deployment+5-10" alt="Micro office deployment illustration">
+                <div class="hardware-name">Deployment Labor (5–10 Devices)</div>
+                <div class="hardware-price">$100.00</div>
+                <div class="hardware-desc">
+                    Focused deployment labor for very small sites or test pilots with up to 10 devices.
+                </div>
+                <div class="hardware-meta">
+                    Useful for proof-of-concept rollouts and small satellite offices.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- How it works -->
 <section id="how">
     <div class="section-inner">
         <h2 class="section-title">How It Works</h2>
         <p class="section-desc">A clear, predictable process designed for stability and transparency.</p>
 
         <div class="contact-box">
-            <p><strong>1. Discovery</strong> – We review your carrier, call volume, and environment.</p>
-            <p><strong>2. AWS Design</strong> – We map your FreePBX deployment to a stable AWS layout.</p>
-            <p><strong>3. Build & Cutover</strong> – We configure trunks, test flows, and schedule migration.</p>
-            <p><strong>4. Ongoing Support</strong> – Regular tuning, monitoring, and safe configuration changes.</p>
+            <p><strong>1. Discovery</strong> – We review your carrier, call volume, devices, and environment.</p>
+            <p><strong>2. AWS Design</strong> – We map your FreePBX deployment to a stable, right-sized AWS layout.</p>
+            <p><strong>3. Build & Cutover</strong> – We configure trunks, devices, and call flows, then schedule a controlled migration.</p>
+            <p><strong>4. Ongoing Support</strong> – Regular tuning, monitoring, and safe configuration changes based on your plan.</p>
         </div>
     </div>
 </section>
 
+<!-- Platform -->
 <section id="platform">
     <div class="section-inner">
         <h2 class="section-title">Platform Overview</h2>
         <p class="section-desc">Built using AWS, FreePBX, and your chosen SIP trunk provider.</p>
 
         <div class="contact-box">
-            <p><strong>AWS:</strong> EC2, backups, controlled security groups.</p>
-            <p><strong>FreePBX:</strong> Transparent configuration, standardized modules.</p>
-            <p><strong>Your Carrier:</strong> Twilio, Flowroute, VoIP.ms, or similar.</p>
+            <p><strong>AWS:</strong> EC2, backups, and controlled security groups to keep signaling and media predictable.</p>
+            <p><strong>FreePBX:</strong> Transparent configuration, clearly documented dial plans, and standard modules.</p>
+            <p><strong>Your Carrier:</strong> Twilio, Flowroute, VoIP.ms, or other compatible SIP trunk providers.</p>
         </div>
     </div>
 </section>
 
+<!-- Contact -->
 <section id="contact">
     <div class="section-inner">
         <h2 class="section-title">Contact</h2>
-        <p class="section-desc">Ready to walk through your call flow? Book a consult or send us details.</p>
+        <p class="section-desc">
+            Ready to walk through your call flow, hardware list, and deployment plan?
+            Book a consult or send us a quick overview of your environment.
+        </p>
 
         <div class="contact-box">
             <p><strong>Book Online:</strong></p>
             <p>
-                <a class="btn-primary" href="https://outlook.office.com/book/Consultastrid27Communications@astrid27.com/" target="_blank">
+                <a class="btn-primary" href="https://outlook.office.com/book/Consultastrid27Communications@astrid27.com/" target="_blank" rel="noopener">
                     Schedule a 15–30 Minute Call
                 </a>
             </p>
-            <p><strong>Bring:</strong> Carrier name, user count, extension list, and any constraints.</p>
+            <p><strong>Helpful to bring:</strong></p>
+            <ul>
+                <li>Carrier name and current SIP trunk details</li>
+                <li>Approximate user count and sites</li>
+                <li>Desired devices (ATA, 9841/9851/9861/9871, or mixed)</li>
+                <li>Any compliance or recording requirements</li>
+            </ul>
         </div>
     </div>
 </section>
@@ -399,4 +674,3 @@
 
 </body>
 </html>
-
