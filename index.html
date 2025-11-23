@@ -89,7 +89,6 @@
             background: var(--brand-blue-dark);
         }
 
-        /* Hero */
         .hero {
             background: var(--bg-gray);
             padding: 4rem 1.5rem;
@@ -123,7 +122,6 @@
             gap: 1rem;
         }
 
-        /* Sections */
         section {
             padding: 3.5rem 1.5rem;
         }
@@ -147,10 +145,9 @@
             margin-bottom: 2rem;
         }
 
-        /* Pricing */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 1.25rem;
         }
 
@@ -203,7 +200,6 @@
             text-align: center;
         }
 
-        /* Contact */
         .contact-box {
             border: 1px solid var(--border);
             padding: 2rem;
@@ -253,7 +249,7 @@
         <div>
             <h1>SIP Trunking & FreePBX Deployments on AWS</h1>
             <p>
-                We specialize in rehosting your SIP trunk and delivering a clean, reliable FreePBX setup built directly on AWS. 
+                We specialize in rehosting your SIP trunk and delivering a clean, reliable FreePBX setup built directly on AWS.
                 No resold minutes, no vague add-ons — just clear architecture and predictable billing.
             </p>
 
@@ -275,6 +271,23 @@
         <p class="section-desc">Pricing below covers engineering, AWS hosting, monitoring, and management. Carrier minutes stay on your own provider.</p>
 
         <div class="pricing-grid">
+
+            <!-- Trial Plan -->
+            <div class="plan">
+                <h3>Trial Plan</h3>
+                <p class="plan-price">$50</p>
+                <p class="plan-desc">Test our setup before committing.</p>
+                <ul>
+                    <li>Fully functional temporary FreePBX instance</li>
+                    <li>Basic SIP trunk integration</li>
+                    <li>Short-term sandbox for evaluation</li>
+                    <li>Setup review with our team</li>
+                </ul>
+                <p class="plan-desc" style="margin-top:1rem; font-size:0.85rem;">
+                    Non-refundable. If you continue with a monthly plan, the $50 becomes service credit.
+                </p>
+                <a href="#" class="btn-primary">Start Trial</a>
+            </div>
 
             <div class="plan">
                 <h3>Phone 30</h3>
@@ -386,3 +399,4 @@
 
 </body>
 </html>
+
